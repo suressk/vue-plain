@@ -1,0 +1,3 @@
+# 创建 monorepo
+packages:
+  - 'packages/*'
