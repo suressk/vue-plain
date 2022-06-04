@@ -1,3 +1,6 @@
+export * from './effect'
+export * from './reactive'
+
 import { isArray } from '@vue-plain/shared'
 
 const arr = [1, 2 ,3]
