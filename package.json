@@ -1,10 +1,10 @@
 {
-  "name": "vue3",
+  "name": "vue-plain",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node scripts/dev.js",
+    "dev:reactivity": "node scripts/dev.js reactivity -f global",
     "build": "node scripts/build.js"
   },
   "repository": {
@@ -14,9 +14,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "vue": "^3.2.31"
-  },
   "devDependencies": {
     "@types/node": "^17.0.38",
     "esbuild": "^0.14.39",

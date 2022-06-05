@@ -1,5 +1,6 @@
 import { isObject } from '@vue-plain/shared'
-import { mutableHandler } from './baseHandlers'
+import { mutableHandler, readonlyHandlers } from './baseHandlers'
+import { warn } from './warning'
 
 export const enum ReactiveFlags {
     SKIP = '__v_skip',
@@ -22,30 +23,33 @@ export const reactiveMap = new WeakMap<Target, any>();
 // 浅代理 proxy 对象
 // export const shallowReactiveMap = new WeakMap<Target, any>()
 // // 只读 proxy（深层代理）
-// export const readonlyMap = new WeakMap<Target, any>();
+export const readonlyMap = new WeakMap<Target, any>();
 // // 浅层只读 proxy
 // export const shallowReadonlyMap = new WeakMap<Target, any>();
 
 // make value to be reactive
-export const reactive = function(target: Target) {
-    return createReactiveObject(target, mutableHandler, reactiveMap)
-}
+export const reactive = (target: Target) => createReactiveObject(target, false, mutableHandler, reactiveMap)
+
+// make value to be a readonly proxy
+export const readonly = <T extends object>(target: T) => createReactiveObject(target, true, readonlyHandlers, readonlyMap)
 
 function createReactiveObject(
     target: Target,
+    isReadonly: boolean,
     baseHandler: ProxyHandler<any>,
     proxyMap: WeakMap<Target, any>,
 ) {
     if (!isObject(target)) {
-        console.warn(`value cannot be made reactive: ${String(target)}`)
+        warn(`value cannot be made reactive: ${String(target)}`)
         return target
     }
     const existProxy = reactiveMap.get(target)
+    // 已经代理过
     if (existProxy) return existProxy
     
     const proxy = new Proxy(target, baseHandler)
 
-    // 把创建好的 proxy 给存起来，
+    // 把创建好的 proxy 存起来
     proxyMap.set(target, proxy);
     return proxy
 }
