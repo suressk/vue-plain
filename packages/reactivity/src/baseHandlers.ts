@@ -58,7 +58,8 @@ function createGetter(isReadonly = false, shallow = false) {
             return target
         }
         const res = Reflect.get(target, key, receiver)
-        warn('get res: ', res)
+        warn('Get key: ', key)
+        warn('Get res: ', res)
         // 非只读 —— 收集依赖（只读不会 set，故不用收集依赖）
         if (!isReadonly) {
             track(target, TrackOpTypes.GET, key)
@@ -71,7 +72,6 @@ function createGetter(isReadonly = false, shallow = false) {
             // 懒代理化，深层对象属性再创建为 proxy
             return isReadonly ? readonly(res) : reactive(res)
         }
-
         return res
     }
 }

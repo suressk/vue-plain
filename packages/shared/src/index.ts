@@ -14,3 +14,7 @@ export const toRawType = (value: unknown): string => {
   // extract "RawType" from strings like "[object RawType]"
   return toTypeString(value).slice(8, -1)
 }
+
+// 比较两个值是否相等
+export const hasChanged = (value: any, oldValue: any): boolean =>
+  !Object.is(value, oldValue)
