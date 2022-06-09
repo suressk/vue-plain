@@ -2,6 +2,10 @@
 
 简易版 vue3.0 核心实现
 
+### Monorepo
+
+[Workspace Docs 🔗](/docs/workspace.md)
+
 ### goal 1: `esbuild`
 
 use `esbuild` to build source code to be `esm` / `cjs` / `iife`(browser) standard-code
