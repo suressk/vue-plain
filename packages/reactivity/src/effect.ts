@@ -29,3 +29,13 @@ export const track = function (
 ) {
   warn('track')
 }
+
+export class ReactiveEffect<T = any> {
+  active = true
+  deps: Dep[] = []
+  parent: ReactiveEffect | undefined = undefined
+
+  constructor() {
+    
+  }
+}

@@ -1,4 +1,4 @@
-import { isObject } from '@vue-plain/shared'
+import { isObject } from 'sure-utils'
 import { mutableHandler, readonlyHandlers } from './baseHandlers'
 import { warn } from './warning'
 
@@ -20,11 +20,14 @@ export interface Target {
 
 // 存储深层代理 proxy（懒代理，访问深层数据时，处理为 proxy）
 export const reactiveMap = new WeakMap<Target, any>()
+
 // 浅代理 proxy 对象
 // export const shallowReactiveMap = new WeakMap<Target, any>()
-// // 只读 proxy（深层代理）
+
+// 只读 proxy（深层代理）
 export const readonlyMap = new WeakMap<Target, any>()
-// // 浅层只读 proxy
+
+// 浅层只读 proxy
 // export const shallowReadonlyMap = new WeakMap<Target, any>();
 
 // make value to be reactive
@@ -46,6 +49,10 @@ function createReactiveObject(
     warn(`value cannot be made reactive: ${String(target)}`)
     return target
   }
+
+  // if (isReadonly) {
+  // }
+
   // 已经代理过
   const existProxy = reactiveMap.get(target)
   if (existProxy) return existProxy

@@ -1,5 +1,5 @@
 import { isObject } from "@vue-plain/shared"
-import { warn } from "./warning"
+import { warn, info } from "./warning"
 import { trigger, track } from "./effect"
 import { TriggerOpTypes, TrackOpTypes } from "./operations"
 import { Target, ReactiveFlags, reactive, readonly, readonlyMap, reactiveMap } from "./reactive"
@@ -14,6 +14,11 @@ export const mutableHandler: ProxyHandler<object> = {
     set
 }
 
+/**
+ * readonly ProxyHandler
+ * donot set
+ * donot delete
+ */
 export const readonlyHandlers: ProxyHandler<object> = {
     get: readonlyGet,
     set(target, key) {
@@ -58,8 +63,8 @@ function createGetter(isReadonly = false, shallow = false) {
             return target
         }
         const res = Reflect.get(target, key, receiver)
-        warn('Get key: ', key)
-        warn('Get res: ', res)
+        info('Get key: ', key)
+        info('Get res: ', res)
         // 非只读 —— 收集依赖（只读不会 set，故不用收集依赖）
         if (!isReadonly) {
             track(target, TrackOpTypes.GET, key)
