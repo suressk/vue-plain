@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:reactivity": "node scripts/dev.js reactivity -f global",
-    "build": "node scripts/build.js"
+    "dev:reactivity": "ts-node scripts/dev.ts reactivity -f global",
+    "build": "ts-node scripts/build.ts"
   },
   "repository": {
     "type": "git",
@@ -15,14 +15,19 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/minimist": "^1.2.2",
     "@types/node": "^17.0.38",
     "@typescript-eslint/parser": "^5.27.0",
     "esbuild": "^0.14.39",
     "eslint": "^8.17.0",
+    "eslint-config-suressk": "0.0.1-alpha.2",
+    "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
+    "ts-node": "^10.8.2",
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "sure-utils": "^1.0.12"
+    "sure-utils": "^1.0.14"
   }
 }

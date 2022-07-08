@@ -8,27 +8,27 @@
     # 指定分包路径
     # packages 目录下的所有包单独管理
     packages:
-        - 'packages/*'
+      - 'packages/*'
     ```
 
 - `packages` 目录下的每一个子包，通过 `package.json` 文件来配置我们需要用到的属性
 
     ```json
     {
-        /* 用于区分各个子包 */
-        "name": "@[主包名]/[当前子包名]",
-        /* 自定义打包配置 */
-        "buildOptions": {
-            /* 打包输出包名（一般大驼峰命名） */
-            "name": "[自定义包名]",
-            /* 打包输出代码规范 */
-            "formats": [
-                "global",
-                "esm-bundler",
-                "cjs"
-            ]
-        },
-        // ... others
+      /* 用于区分各个子包 */
+      "name": "@[主包名]/[当前子包名]",
+      /* 自定义打包配置 */
+      "buildOptions": {
+        /* 打包输出包名（一般大驼峰命名） */
+        "name": "[自定义包名]",
+        /* 打包输出代码规范 */
+        "formats": [
+          "global",
+          "esm-bundler",
+          "cjs"
+        ]
+      }
+      // ... others
     }
     ```
 
@@ -36,22 +36,22 @@
 
     ```json
     {
-        "compilerOptions": {
-            // ... others config
-            "baseUrl": ".",
-            /*
+      "compilerOptions": {
+        // ... others config
+        "baseUrl": ".",
+        /*
              这样，我们在代码里
              import {xxx} from '@[主包名]/xxx'
              时就可以找到对应的文件了，否则就会找不到文件而报错
              */
-            "paths": {
-                "@[主包名]/*": ["packages/*/src"]
-            },
-            "outDir": "dist",
+        "paths": {
+          "@[主包名]/*": ["packages/*/src"]
         },
-        "include": [
-            "packages/*/src"
-        ]
+        "outDir": "dist"
+      },
+      "include": [
+        "packages/*/src"
+      ]
     }
     ```
 

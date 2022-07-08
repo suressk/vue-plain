@@ -1,8 +1,13 @@
-const { build } = require('esbuild')
-const { resolve, relative } = require('path')
+import { relative, resolve } from 'path'
+import { build } from 'esbuild'
+import minimist from 'minimist'
+import { readJSONSync } from 'fs-extra'
+
+// const { build } = require('esbuild')
+// const { resolve, relative } = require('path')
 // 打包命令参数: node scripts/dev.js reactivity -f global
 // 得到 { _: ['reactivity'], f: 'global' }
-const args = require('minimist')(process.argv.slice(2))
+const args = minimist(process.argv.slice(2))
 
 // console.log('args: ', args)
 
@@ -10,11 +15,11 @@ const target = args._[0] || 'vue'
 const format = args.f || 'global'
 // const inlineDeps = args.i || args.inline
 // 拿到每个包的 package.json，得到我们自己配的 buildOptions 配置项
-const pkg = require(resolve(__dirname, `../packages/${target}/package.json`))
+const pkg = readJSONSync(resolve(__dirname, `../packages/${target}/package.json`))
 
 // 打包输出格式
-const outputFormat =
-  format === 'global' ? 'iife' : format === 'cjs' ? 'cjs' : 'esm'
+const outputFormat
+  = format === 'global' ? 'iife' : format === 'cjs' ? 'cjs' : 'esm'
 
 // 输出文件路径及文件名
 const outfile = resolve(
