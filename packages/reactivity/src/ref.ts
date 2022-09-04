@@ -1,6 +1,5 @@
+import { hasChanged } from '@vue-plain/shared'
 import { toRaw, toReactive } from './reactive'
-// import { hasChanged } from '@vue-plain/shared'
-import { hasChanged } from 'sure-utils'
 
 export function ref(value?: unknown) {
   return createRef(value, false)

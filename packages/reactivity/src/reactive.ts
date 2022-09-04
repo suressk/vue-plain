@@ -1,4 +1,4 @@
-import { isObject } from 'sure-utils'
+import { isObject } from '@vue-plain/shared'
 import { mutableHandler, readonlyHandlers } from './baseHandlers'
 import { warn } from './warning'
 
@@ -55,7 +55,7 @@ function createReactiveObject(
 
   // 已经代理过
   const existProxy = reactiveMap.get(target)
-  if (existProxy) return existProxy
+  if (existProxy) { return existProxy }
 
   const proxy = new Proxy(target, baseHandler)
 
@@ -69,5 +69,6 @@ export function toRaw<T>(observed: T): T {
   return raw ? toRaw(raw) : observed
 }
 
-export const toReactive = <T extends unknown>(value: T): T =>
+// T extends unknown
+export const toReactive = <T>(value: T): T =>
   isObject(value) ? reactive(value) : value

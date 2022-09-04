@@ -1,5 +1,6 @@
-import { isFunction } from "sure-utils"
+import { isFunction } from '@vue-plain/shared'
 // import { ReactiveEffect } from "./effect"
+import { ReactiveFlags } from './reactive'
 import { warn } from './warning'
 
 export type ComputedGetter<T> = (...args: any[]) => T
@@ -13,12 +14,16 @@ export interface WritableComputedOptions<T> {
 class ComputedRefImpl<T> {
   private _value!: T
 
+  public readonly [ReactiveFlags.IS_READONLY]: boolean = false
+
   constructor(
     getter: ComputedGetter<T>,
     private readonly _setter: ComputedSetter<T>,
-    isReadonly: boolean,
+    isReadonly: boolean
   ) {
     // this.effect = new ReactiveEffect()
+
+    this[ReactiveFlags.IS_READONLY] = isReadonly
   }
 
   get value() {
@@ -31,8 +36,8 @@ class ComputedRefImpl<T> {
 }
 
 export function computed<T>(
-  getterOrOptions: ComputedGetter<T> | WritableComputedOptions<T>,
-  debugOptions?: any
+  getterOrOptions: ComputedGetter<T> | WritableComputedOptions<T>
+  // debugOptions?: any
 ) {
   let getter: ComputedGetter<T>
   let setter: ComputedSetter<T>
