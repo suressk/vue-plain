@@ -21,13 +21,13 @@
     "@typescript-eslint/parser": "^5.27.0",
     "esbuild": "^0.14.39",
     "eslint": "^8.17.0",
-    "eslint-config-suressk": "0.0.1-alpha.2",
+    "eslint-config-suressk": "^0.1.3",
     "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
     "ts-node": "^10.8.2",
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "sure-utils": "^1.0.14"
+    "sure-utils": "^1.1.4"
   }
 }
